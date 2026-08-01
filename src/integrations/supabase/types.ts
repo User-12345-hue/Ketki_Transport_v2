@@ -14,7 +14,74 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      truck_logs: {
+        Row: {
+          action: Database["public"]["Enums"]["truck_status"]
+          created_at: string
+          id: string
+          location_note: string | null
+          owner_id: string
+          vehicle_id: string
+        }
+        Insert: {
+          action: Database["public"]["Enums"]["truck_status"]
+          created_at?: string
+          id?: string
+          location_note?: string | null
+          owner_id: string
+          vehicle_id: string
+        }
+        Update: {
+          action?: Database["public"]["Enums"]["truck_status"]
+          created_at?: string
+          id?: string
+          location_note?: string | null
+          owner_id?: string
+          vehicle_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "truck_logs_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "trucks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trucks: {
+        Row: {
+          capacity: string | null
+          created_at: string
+          driver_name: string | null
+          id: string
+          owner_id: string
+          status: Database["public"]["Enums"]["truck_status"]
+          updated_at: string
+          vehicle_number: string
+        }
+        Insert: {
+          capacity?: string | null
+          created_at?: string
+          driver_name?: string | null
+          id?: string
+          owner_id: string
+          status?: Database["public"]["Enums"]["truck_status"]
+          updated_at?: string
+          vehicle_number: string
+        }
+        Update: {
+          capacity?: string | null
+          created_at?: string
+          driver_name?: string | null
+          id?: string
+          owner_id?: string
+          status?: Database["public"]["Enums"]["truck_status"]
+          updated_at?: string
+          vehicle_number?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +90,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      truck_status: "IN" | "OUT"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +217,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      truck_status: ["IN", "OUT"],
+    },
   },
 } as const
