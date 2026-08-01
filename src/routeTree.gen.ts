@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedEntryExitRouteImport } from './routes/_authenticated/entry-exit'
 import { Route as AuthenticatedTrucksRouteImport } from './routes/_authenticated/trucks'
 
 const IndexRoute = IndexRouteImport.update({
@@ -34,6 +35,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedEntryExitRoute = AuthenticatedEntryExitRouteImport.update({
+  id: '/entry-exit',
+  path: '/entry-exit',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedTrucksRoute = AuthenticatedTrucksRouteImport.update({
   id: '/trucks',
   path: '/trucks',
@@ -44,12 +50,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/entry-exit': typeof AuthenticatedEntryExitRoute
   '/trucks': typeof AuthenticatedTrucksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/entry-exit': typeof AuthenticatedEntryExitRoute
   '/trucks': typeof AuthenticatedTrucksRoute
 }
 export interface FileRoutesById {
@@ -58,19 +66,21 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/entry-exit': typeof AuthenticatedEntryExitRoute
   '/_authenticated/trucks': typeof AuthenticatedTrucksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/trucks'
+  fullPaths: '/' | '/auth' | '/dashboard' | '/entry-exit' | '/trucks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/trucks'
+  to: '/' | '/auth' | '/dashboard' | '/entry-exit' | '/trucks'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/dashboard'
+    | '/_authenticated/entry-exit'
     | '/_authenticated/trucks'
   fileRoutesById: FileRoutesById
 }
@@ -110,6 +120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/entry-exit': {
+      id: '/_authenticated/entry-exit'
+      path: '/entry-exit'
+      fullPath: '/entry-exit'
+      preLoaderRoute: typeof AuthenticatedEntryExitRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/trucks': {
       id: '/_authenticated/trucks'
       path: '/trucks'
@@ -122,11 +139,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedEntryExitRoute: typeof AuthenticatedEntryExitRoute
   AuthenticatedTrucksRoute: typeof AuthenticatedTrucksRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedEntryExitRoute: AuthenticatedEntryExitRoute,
   AuthenticatedTrucksRoute: AuthenticatedTrucksRoute,
 }
 
