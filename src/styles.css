@@ -148,3 +148,37 @@
     color: var(--color-foreground);
   }
 }
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-status-in: var(--status-in);
+  --color-status-out: var(--status-out);
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+@utility panel {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-panel);
+}
+
+@utility tag-in {
+  background-color: var(--status-in);
+  color: var(--primary-foreground);
+  border: 1px solid var(--status-in);
+}
+
+@utility tag-out {
+  background-color: var(--card);
+  color: var(--status-out);
+  border: 1px solid var(--status-out);
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
